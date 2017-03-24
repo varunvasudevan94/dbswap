@@ -1,4 +1,5 @@
 #include "system_function.h"
+#include "linked_list.h"
 #include <time.h>
 
 int create_swap_directory(char *dir_name){
@@ -70,25 +71,39 @@ int show_changes(char *cmd_exec,char *dir_name){
         /* Read the output a line at a time - output it. */
 
 	int count=0;
-
+	node *start;
+	init_linked_list(&start);
         while (fgets(path, sizeof(path)-1, fp) != NULL) {
          
-          int val=count%6;
-	  	if (val==0)
-		 { printf("%s\n", path);}
-		else if (val==4)
-		{ printf("button val %s\n",path);}
+          	int val=count%6;
+		char commit[1000];
+		char message[1000];
+	  	if (val==0){ 
+		   //printf("%s\n", path);
+		   strcpy(commit,"");
+		   strcpy(message,"");	
+		   strcpy(commit,path);
+
+		}
+		else if (val==4){ 
+		   //printf("button val %s\n",path);
+		   strcpy(message,path);
+		   insert_linked_list(&start,commit,messages);	
+		   	
+
+		}
 
 
 
 	 	 	
 				
-          printf("%s count=%d\n", path,count);
+          //printf("%s count=%d\n", path,count);
 	count++;	
 
         }
-
-
+	
+	printf("chukc jone\n");	
+	print_linked_list(start);
         //fill for false
         /* close */
         pclose(fp);

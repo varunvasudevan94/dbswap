@@ -24,7 +24,7 @@ void insert_linked_list(node **start,char *commit,char *message){
 
 }
 
-int count=0;
+
 // modify this to the UI
 void print_linked_list(node *start){
 	
@@ -33,25 +33,9 @@ void print_linked_list(node *start){
 		return;
 	print_linked_list(start->next);
 	printf("%s\n",temp->message);
-	/*while (temp){
-		printf("%s\n",temp->message);
-		temp=temp->next;
-	}*/
-
+	
 
 
 }
 
-int main(){
-	node *start;
-	init_linked_list(&start);
-	insert_linked_list(&start,"hi","1");
-	insert_linked_list(&start,"hia","2");
-	insert_linked_list(&start,"hib","3");
-	insert_linked_list(&start,"hic","4");
-	insert_linked_list(&start,"hid","5");
-	print_linked_list(start);
 
-
-	return 0;
-}
