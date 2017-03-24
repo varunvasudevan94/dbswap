@@ -8,6 +8,11 @@ int create_swap_directory(char *dir_name){
         return FALSE;
 }
 
+int command_git(char *cmd_exec){
+
+
+}
+
 int init_dir(char *dir_name){
         char cmd_exec[1000]="git init ";
         strcat(cmd_exec,dir_name);
@@ -32,5 +37,19 @@ int init_dir(char *dir_name){
         pclose(fp);
         return TRUE;
 }
+
+int add_swap_file(){
+
+
+}
+
+int commit_swap_file(){
+
+
+
+
+
+}
+
 
 
