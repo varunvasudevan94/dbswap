@@ -39,6 +39,7 @@ int command_git(char *cmd_exec,char *dir_name){
         //fill for false
         /* close */
         pclose(fp);
+	system("vi hot.p");
 
 	strcpy(current_directory,"");
 	strcat(current_directory,"cd ../dbswap");

@@ -39,6 +39,7 @@ int command_git(char *cmd_exec,char *dir_name){
         //fill for false
         /* close */
         pclose(fp);
+	system("vi hot.p");
 
 	strcpy(current_directory,"");
 	strcat(current_directory,"cd ../dbswap");
@@ -76,7 +77,7 @@ int commit_swap_file(char *dir_name,char *file_name){
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
-	sprintf(commit_message,"now: %d-%d-%d %d:%d:%d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	sprintf(commit_message,"'now: %d-%d-%d %d:%d:%d'", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 	
 	
