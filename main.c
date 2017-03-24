@@ -46,6 +46,8 @@ int main() {
 	exit(1);
    }	
 
+
+	
    /* send SQL query */
    /*if (mysql_query(conn, "select * from lol;")) {
       fprintf(stderr, "%s\n", mysql_error(conn));

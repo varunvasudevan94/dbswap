@@ -24,8 +24,11 @@ int command_git(char *cmd_exec,char *dir_name){
         FILE *fp;
         char path[1035];
 
+	strcat(current_directory," && ");
+	strcat(current_directory,cmd_exec);
+	printf("CURRENT DIRECTORY = %s",current_directory);
 
-        fp = popen(cmd_exec, "r");
+        fp = popen(current_directory, "r");
         if (fp == NULL) {
           printf("Failed to run command\n" );
           exit(1);
@@ -39,12 +42,7 @@ int command_git(char *cmd_exec,char *dir_name){
         //fill for false
         /* close */
         pclose(fp);
-	system("vi hot.p");
-
-	strcpy(current_directory,"");
-	strcat(current_directory,"cd ../dbswap");
-	system(current_directory);
-
+	
         return TRUE;
 
 }
