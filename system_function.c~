@@ -3,10 +3,16 @@
 
 int create_swap_directory(char *dir_name){
       char cmd_exec[1000]="mkdir ";
+      FILE *fp=fopen(dir_name,"r");
+      if (fp!=NULL){
+	printf("directory already exists\n");
+	return 1;	
+
+      }			
       strcat(cmd_exec,dir_name);  
       if (system(cmd_exec)!=-1)
-          return TRUE;
-        return FALSE;
+          return 0;
+      return -1;
 }
 
 int command_git(char *cmd_exec,char *dir_name){
@@ -35,10 +41,17 @@ int command_git(char *cmd_exec,char *dir_name){
 }
 
 int init_dir(char *dir_name){
+	 FILE *fp=fopen(dir_name,"r");
+      	 if (fp!=NULL){
+		printf("directory already exists\n");
+		return 1;	
+
+      	 }		
+
         char cmd_exec[1000]="git init ";
 	command_git(cmd_exec,dir_name);
 	
-	return TRUE;	        
+	return 0;	        
 }
 
 int add_swap_file(char *dir_name){

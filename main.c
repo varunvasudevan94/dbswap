@@ -11,15 +11,15 @@ int main() {
    char *password = "copenhagen"; /* set me first */
    char *database = "tyrst";
 
-   if (!create_swap_directory("temp3011994")){
-      printf("Something wrong with directory creation");
+   if (create_swap_directory("temp3011994")==-1){		//-1 for error 0 success 1 directory exists
+      //printf("Something wrong with directory creation");
       exit(1);
 
    }
 
   if (!init_dir("temp3011994")){
       printf("problem with initing directory");
-      exit(1);
+      //exit(1);
 
   }      
 
