@@ -1,0 +1,2 @@
+all:
+	gcc -w -o output-file $(mysql_config --cflags) main.c mysql_client.c mysql_client.h system_function.h system_function.c $(mysql_config --libs)

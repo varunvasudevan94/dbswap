@@ -11,7 +11,19 @@ int main() {
    char *password = "copenhagen"; /* set me first */
    char *database = "tyrst";
 
-  
+   if (!create_swap_directory("temp3011994")){
+      printf("Something wrong with directory creation");
+      exit(1);
+
+   }
+
+  if (!init_dir("temp3011994")){
+      printf("problem with initing directory");
+      exit(1);
+
+  }      
+
+
    if (!check_db_info(server,database,user,password)){
          printf("DATABASE does not exist\n");
          exit(1);
@@ -23,7 +35,6 @@ int main() {
          exit(1);
 
    }
-
 
 
 
