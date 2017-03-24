@@ -1,0 +1,19 @@
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct node{
+	char commit[1000];
+	char message[1000];
+	
+
+	struct node *next;
+}node;
+
+void init_linked_list(node **start);
+void insert_linked_list(node **start,char *commit,char *message);
+void print_linked_list(node *start);
+
+#endif

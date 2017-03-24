@@ -1,5 +1,5 @@
 #include "mysql_client.h"
-
+#include "linked_list.h"
 
 int main() {
    MYSQL *conn;
@@ -11,7 +11,7 @@ int main() {
    char *password = "copenhagen"; /* set me first */
    char *database = "tyrst";
 
-   if (create_swap_directory("../temp3011994")==-1){		//-1 for error 0 success 1 directory exists
+  /* if (create_swap_directory("../temp3011994")==-1){		//-1 for error 0 success 1 directory exists
       //printf("Something wrong with directory creation");
       exit(1);
 
@@ -46,6 +46,12 @@ int main() {
 	exit(1);
    }	
 
+	*/
+
+	show_changes("git log ","../temp3011994");
+
+	//restore_db(server,database,user,password);
+   	
 
 	
    /* send SQL query */

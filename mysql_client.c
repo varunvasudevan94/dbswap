@@ -33,3 +33,27 @@ int create_dump(char *server,char *database,char *user,char *password){
       return FALSE;
 
 }
+
+
+int restore_db(char *server,char *database,char *user,char *password){
+	
+      char cmd_exec[1000]="mysql -u ";
+      strcat(cmd_exec,user);
+      strcat(cmd_exec," --password='");
+      strcat(cmd_exec,password);  
+      strcat(cmd_exec,"' -h ");
+      strcat(cmd_exec,server);
+      strcat(cmd_exec," ");
+      strcat(cmd_exec,database);
+      strcat(cmd_exec," < ../temp3011994/db_backup.sql");
+      printf("restoring db this may take a while depending on the size.......\n");
+      if (system(cmd_exec)!=-1){
+
+         return TRUE;
+      } 
+   
+
+      return FALSE;		
+
+}
+

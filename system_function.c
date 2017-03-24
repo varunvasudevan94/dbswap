@@ -47,6 +47,59 @@ int command_git(char *cmd_exec,char *dir_name){
 
 }
 
+
+int show_changes(char *cmd_exec,char *dir_name){
+	char current_directory[1000]="cd ";
+
+	strcat(current_directory,dir_name);
+	system(current_directory);
+
+        FILE *fp;
+        char path[1035];
+
+	strcat(current_directory," && ");
+	strcat(current_directory,cmd_exec);
+	
+
+        fp = popen(current_directory, "r");
+        if (fp == NULL) {
+          printf("Failed to run command\n" );
+          exit(1);
+        } 
+
+        /* Read the output a line at a time - output it. */
+
+	int count=0;
+
+        while (fgets(path, sizeof(path)-1, fp) != NULL) {
+         
+          int val=count%6;
+	  	if (val==0)
+		 { printf("%s\n", path);}
+		else if (val==4)
+		{ printf("button val %s\n",path);}
+
+
+
+	 	 	
+				
+          //printf("%s count=%d\n", path,count);
+	count++;	
+
+        }
+
+
+        //fill for false
+        /* close */
+        pclose(fp);
+	
+        return TRUE;
+
+}
+
+
+
+
 int init_dir(char *dir_name){
 	 FILE *fp=fopen(dir_name,"r");
       	 if (fp!=NULL){
@@ -88,10 +141,4 @@ int commit_swap_file(char *dir_name,char *file_name){
 
 }
 
-int restore_db(char *dir_name,char *file_name){
-	char full_file_path[1000];
-	strcpy(full_file_path,dir_name);
-
-
-}
 
