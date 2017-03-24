@@ -16,7 +16,10 @@ int create_swap_directory(char *dir_name){
 }
 
 int command_git(char *cmd_exec,char *dir_name){
-	strcat(cmd_exec,dir_name);
+	char current_directory[1000]="cd ";
+
+	strcat(current_directory,dir_name);
+	system(current_directory);
 
         FILE *fp;
         char path[1035];
@@ -36,6 +39,11 @@ int command_git(char *cmd_exec,char *dir_name){
         //fill for false
         /* close */
         pclose(fp);
+
+	strcpy(current_directory,"");
+	strcat(current_directory,"cd ../dbswap");
+	system(current_directory);
+
         return TRUE;
 
 }
@@ -57,7 +65,7 @@ int init_dir(char *dir_name){
 int add_swap_file(char *dir_name){
 	char cmd_exec[1000]="git add -A  ";
 	command_git(cmd_exec,dir_name);
-
+	printf("$$$$$$$$$$$$$$$$$$$$$$$added successfully\n");
 	return TRUE;
 }
 
@@ -68,18 +76,23 @@ int commit_swap_file(char *dir_name,char *file_name){
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
-	sprintf(commit_message,"now: %d-%d-%d %d:%d:%d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	sprintf(commit_message,"'now: %d-%d-%d %d:%d:%d'", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 	
-	char full_file_path[1000];
-	strcpy(full_file_path,dir_name);
-	strcat(full_file_path,file_name);
-	command_git(cmd_exec,full_file_path);	
+	
+	strcat(cmd_exec,commit_message);
+	
+	command_git(cmd_exec,dir_name);	
 
 
 	return TRUE;
 
 }
 
+int restore_db(char *dir_name,char *file_name){
+	char full_file_path[1000];
+	strcpy(full_file_path,dir_name);
 
+
+}
 

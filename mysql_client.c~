@@ -23,7 +23,7 @@ int create_dump(char *server,char *database,char *user,char *password){
       strcat(cmd_exec,server);
       strcat(cmd_exec," ");
       strcat(cmd_exec,database);
-      strcat(cmd_exec," > ../temp3011994/db_backup.sql");
+      strcat(cmd_exec," > temp3011994/db_backup.sql");
       printf("........creating backup\n");            
       if (system(cmd_exec)!=-1){
 
