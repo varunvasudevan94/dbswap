@@ -36,12 +36,12 @@ int main() {
 
    }
 
-   if (!add_swap_file("temp3011994")){
+   if (!add_swap_file(char *dir_name)){
 	printf("dump not added to repository");
 	exit(1);
    }	
 
-   if (!commit_swap_file("temp3011994","db_backup.sql")){
+   if (!commit_swap_file(char *dir_name,char *file_name)){
 	printf("not committed successfully");
 	exit(1);
    }	

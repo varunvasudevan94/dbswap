@@ -11,5 +11,5 @@ int create_swap_directory(char *dir_name);
 int command_git(char *cmd_exec,char *dir_name);
 int init_dir(char *dir_name);
 int add_swap_file(char *dir_name);
-int commit_swap_file(char *dir_name,char *file_name);
+int commit_swap_file(char *dir_name,char *file_name)
 #endif
