@@ -1,8 +1,13 @@
+#include <gtk/gtk.h>
 #include "mysql_client.h"
-#include "linked_list.h"
+#include "system_function.h"
+#include "exampleapp.h"
 
-int main() {
-   MYSQL *conn;
+int
+main (int argc, char *argv[])
+{
+
+	MYSQL *conn;
    MYSQL_RES *res;
    MYSQL_ROW row;
 
@@ -11,7 +16,7 @@ int main() {
    char *password = "copenhagen"; /* set me first */
    char *database = "tyrst";
 
-  /* if (create_swap_directory("../temp3011994")==-1){		//-1 for error 0 success 1 directory exists
+   if (create_swap_directory("../temp3011994")==-1){		//-1 for error 0 success 1 directory exists
       //printf("Something wrong with directory creation");
       exit(1);
 
@@ -46,30 +51,6 @@ int main() {
 	exit(1);
    }	
 
-	*/
 
-	show_changes("git log ","../temp3011994");
-
-	//restore_db(server,database,user,password);
-   	
-
-	
-   /* send SQL query */
-   /*if (mysql_query(conn, "select * from lol;")) {
-      fprintf(stderr, "%s\n", mysql_error(conn));
-      exit(1);
-   }
-
-   res = mysql_use_result(conn);
-
-  
-   printf("MySQL Tables in mysql database:\n");
-   while ((row = mysql_fetch_row(res)) != NULL)
-      printf("%s \n", row[0]);
-
-  
-*/	
-
-  // mysql_free_result(res);
-   mysql_close(conn);
+  return g_application_run (G_APPLICATION (example_app_new ()), argc, argv);
 }

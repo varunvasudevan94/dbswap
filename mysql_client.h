@@ -1,7 +1,7 @@
 #ifndef MYSQL_CLIENT_H
 #define MYSQL_CLIENT_H
 
-#include <mysql.h>
+#include <mysql/mysql.h>
 #include <stdio.h>
 #include <string.h>	
 #define TRUE 1

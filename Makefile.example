@@ -1,0 +1,27 @@
+CC ?= gcc
+PKGCONFIG = $(shell which pkg-config)
+CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-3.0  )  -I/usr/include/mysql 
+$(info VAR is $(CFLAGS))
+LIBS = $(shell $(PKGCONFIG) --libs gtk+-3.0  ) `mysql_config --cflags --libs` 
+GLIB_COMPILE_RESOURCES = $(shell $(PKGCONFIG) --variable=glib_compile_resources gio-2.0)
+
+SRC = exampleapp.c exampleappwin.c main.c 	
+BUILT_SRC = resources.c linked_list.c mysql_client.c system_function.c
+
+OBJS = $(BUILT_SRC:.c=.o) $(SRC:.c=.o)
+
+all: exampleapp
+
+resources.c: exampleapp.gresource.xml window.ui
+	$(GLIB_COMPILE_RESOURCES) exampleapp.gresource.xml --target=$@ --sourcedir=. --generate-source
+
+%.o: %.c
+	$(CC) -c -o $(@F) $(mysql_config --cflags) $(CFLAGS)  $(mysql_config --cflags)  $(mysql_config --cflags) $<  $(mysql_config --libs)
+
+exampleapp: $(OBJS)
+	$(CC) -o $(mysql_config --cflags) $(@F) $(OBJS) $(LIBS)  $(mysql_config --libs)
+
+clean:
+	rm -f $(BUILT_SRC)
+	rm -f $(OBJS)
+	rm -f exampleapp
