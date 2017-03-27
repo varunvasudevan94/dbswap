@@ -47,21 +47,24 @@ int create_widget_ui( int   argc,
     
     box1 = gtk_hbox_new (FALSE, 0);
 
-    
+   while (list){  
     gtk_container_add (GTK_CONTAINER (window), box1);
 
     
-    button = gtk_button_new_with_label ("Button 1");
+    button = gtk_button_new_with_label (list->message);
 
    
     g_signal_connect (button, "clicked",
-                      G_CALLBACK (callback), (gpointer) "button 1");
+                      G_CALLBACK (callback), (gpointer) list->commit);
 
     
     gtk_box_pack_start (GTK_BOX(box1), button, TRUE, TRUE, 0);
+	gtk_widget_show (button);
 
+	list=list->next;	
+    }
     
-    gtk_widget_show (button);
+    /*gtk_widget_show (button);
 
     button = gtk_button_new_with_label ("Button 2");
 
@@ -71,7 +74,7 @@ int create_widget_ui( int   argc,
     gtk_box_pack_start(GTK_BOX (box1), button, TRUE, TRUE, 0);
 
     gtk_widget_show (button);
-
+*/
     gtk_widget_show (box1);
 
     gtk_widget_show (window);
