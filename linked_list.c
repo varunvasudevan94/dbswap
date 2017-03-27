@@ -28,7 +28,7 @@ void insert_linked_list(node **start,char *commit,char *message){
 
 
 // modify this to the UI
-void print_linked_list(node **start){
+void print_linked_list(node *start){
 	
 	
 	if (start==NULL)
@@ -40,4 +40,11 @@ void print_linked_list(node **start){
 
 }
 
+void reverse_linked_list(node *start,node **new_start){
+	while (start){
 
+		insert_linked_list(new_start,start->commit,start->message);
+		start=start->next;
+	}
+
+}

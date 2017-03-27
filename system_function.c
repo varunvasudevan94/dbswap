@@ -105,16 +105,20 @@ node* show_changes(char *dir_name){
         }
 	
 	printf("chucked jone\n");	
-	print_linked_list(&start);
+
+	//print_linked_list(start);
+	node *new_list=NULL;
+	reverse_linked_list(start,&new_list);
+	//print_linked_list(new_list);
         //fill for false
         /* close */
 
 
-
+       free(start);
         	
        pclose(fp);
 	
-        return start;
+        return new_list;
 
 }
 

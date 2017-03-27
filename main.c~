@@ -145,7 +145,8 @@ int main( int   argc,
         exit(1);
    }    
 
-   node *list;
+   node *list=show_changes("../temp3011994");
+
 	
    create_widget_ui(argc,argv);   
     

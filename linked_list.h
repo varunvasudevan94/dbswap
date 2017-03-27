@@ -14,6 +14,6 @@ typedef struct node{
 
 void init_linked_list(node **start);
 void insert_linked_list(node **start,char *commit,char *message);
-void print_linked_list(node **start);
-
+void print_linked_list(node *start);
+void reverse_linked_list(node *start,node **new_list);
 #endif
