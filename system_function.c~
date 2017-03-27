@@ -49,7 +49,7 @@ int command_git(char *cmd_exec,char *dir_name){
 }
 
 
-int show_changes(char *cmd_exec,char *dir_name){
+node* show_changes(char *dir_name){
 	char current_directory[1000]="cd ";
 
 	strcat(current_directory,dir_name);
@@ -88,7 +88,7 @@ int show_changes(char *cmd_exec,char *dir_name){
 		else if (val==4){ 
 		   //printf("button val %s\n",path);
 		   strcpy(message,path);
-		   insert_linked_list(&start,commit,messages);	
+		   insert_linked_list(&start,commit,message);	
 		   	
 
 		}
@@ -108,7 +108,7 @@ int show_changes(char *cmd_exec,char *dir_name){
         /* close */
         pclose(fp);
 	
-        return TRUE;
+        return start;
 
 }
 

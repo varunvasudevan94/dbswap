@@ -1,5 +1,5 @@
 #include "system_function.h"
-#include "linked_list.h"
+#include "string.h"
 #include <time.h>
 
 int create_swap_directory(char *dir_name){
@@ -49,14 +49,15 @@ int command_git(char *cmd_exec,char *dir_name){
 }
 
 
-int show_changes(char *cmd_exec,char *dir_name){
+node* show_changes(char *dir_name){
+	char cmd_exec[1000]="git log ";
 	char current_directory[1000]="cd ";
 
 	strcat(current_directory,dir_name);
-	system(current_directory);
+	//system(current_directory);
 
         FILE *fp;
-        char path[1035];
+        char path[1000];
 
 	strcat(current_directory," && ");
 	strcat(current_directory,cmd_exec);
@@ -73,8 +74,8 @@ int show_changes(char *cmd_exec,char *dir_name){
 	int count=0;
 	node *start;
 	init_linked_list(&start);
-        while (fgets(path, sizeof(path)-1, fp) != NULL) {
-         
+        while (fgets(path, 1000, fp) != NULL) {
+        
           	int val=count%6;
 		char commit[1000];
 		char message[1000];
@@ -88,6 +89,7 @@ int show_changes(char *cmd_exec,char *dir_name){
 		else if (val==4){ 
 		   //printf("button val %s\n",path);
 		   strcpy(message,path);
+		   if (fp)	
 		   insert_linked_list(&start,commit,message);	
 		   	
 
@@ -102,13 +104,17 @@ int show_changes(char *cmd_exec,char *dir_name){
 
         }
 	
-	printf("chukc jone\n");	
-	print_linked_list(start);
+	printf("chucked jone\n");	
+	print_linked_list(&start);
         //fill for false
         /* close */
-        pclose(fp);
+
+
+
+        	
+       pclose(fp);
 	
-        return TRUE;
+        return start;
 
 }
 
