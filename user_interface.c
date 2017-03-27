@@ -1,59 +1,21 @@
-/* example-start buttons buttons.c */
-
 #include <gtk/gtk.h>
 
-/* Create a new hbox with an image and a label packed into it
- * and return the box. */
-
-GtkWidget *xpm_label_box( GtkWidget *parent,
-                          gchar     *xpm_filename,
-                          gchar     *label_text )
+/* Our new improved callback.  The data passed to this function
+ * is printed to stdout. */
+static void callback( GtkWidget *widget,
+                      gpointer   data )
 {
-    GtkWidget *box1;
-    GtkWidget *label;
-    GtkWidget *pixmapwid;
-    GdkPixmap *pixmap;
-    GdkBitmap *mask;
-    GtkStyle *style;
-
-    /* Create box for xpm and label */
-    box1 = gtk_hbox_new (FALSE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (box1), 2);
-
-    /* Get the style of the button to get the
-     * background color. */
-    style = gtk_widget_get_style(parent);
-
-    /* Now on to the xpm stuff */
-    pixmap = gdk_pixmap_create_from_xpm (parent->window, &mask,
-                                         &style->bg[GTK_STATE_NORMAL],
-                                         xpm_filename);
-    pixmapwid = gtk_pixmap_new (pixmap, mask);
-
-    /* Create a label for the button */
-    label = gtk_label_new (label_text);
-
-    /* Pack the pixmap and label into the box */
-    gtk_box_pack_start (GTK_BOX (box1),
-                        pixmapwid, FALSE, FALSE, 3);
-
-    gtk_box_pack_start (GTK_BOX (box1), label, FALSE, FALSE, 3);
-
-    gtk_widget_show(pixmapwid);
-    gtk_widget_show(label);
-
-    return(box1);
+    g_print ("Hello again - %s was pressed\n", (gchar *) data);
 }
 
-/* Our usual callback function */
-void callback( GtkWidget *widget,
-               gpointer   data )
+/* another callback */
+static gboolean delete_event( GtkWidget *widget,
+                              GdkEvent  *event,
+                              gpointer   data )
 {
-    g_print ("Hello again - %s was pressed\n", (char *) data);
-    	
-
+    gtk_main_quit ();
+    return FALSE;
 }
-
 
 int main( int   argc,
           char *argv[] )
@@ -63,48 +25,71 @@ int main( int   argc,
     GtkWidget *button;
     GtkWidget *box1;
 
+    /* This is called in all GTK applications. Arguments are parsed
+     * from the command line and are returned to the application. */
     gtk_init (&argc, &argv);
 
     /* Create a new window */
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
-    gtk_window_set_title (GTK_WINDOW (window), "Pixmap'd Buttons!");
+    /* This is a new call, which just sets the title of our
+     * new window to "Hello Buttons!" */
+    gtk_window_set_title (GTK_WINDOW (window), "Hello Buttons!");
 
-    /* It's a good idea to do this for all windows. */
-    gtk_signal_connect (GTK_OBJECT (window), "destroy",
-                        GTK_SIGNAL_FUNC (gtk_exit), NULL);
-
-    gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                        GTK_SIGNAL_FUNC (gtk_exit), NULL);
+    /* Here we just set a handler for delete_event that immediately
+     * exits GTK. */
+    g_signal_connect (window, "delete-event",
+		      G_CALLBACK (delete_event), NULL);
 
     /* Sets the border width of the window. */
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
-    gtk_widget_realize(window);
 
-    /* Create a new button */
-    button = gtk_button_new ();
+    /* We create a box to pack widgets into.  This is described in detail
+     * in the "packing" section. The box is not really visible, it
+     * is just used as a tool to arrange widgets. */
+    box1 = gtk_hbox_new (FALSE, 0);
 
-    /* Connect the "clicked" signal of the button to our callback */
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                        GTK_SIGNAL_FUNC (callback), (gpointer) "cool button");
+    /* Put the box into the main window. */
+    gtk_container_add (GTK_CONTAINER (window), box1);
 
-    /* This calls our box creating function */
-    box1 = xpm_label_box(window, "info.xpm", "cool button");
+    /* Creates a new button with the label "Button 1". */
+    button = gtk_button_new_with_label ("Button 1");
+    
+    /* Now when the button is clicked, we call the "callback" function
+     * with a pointer to "button 1" as its argument */
+    g_signal_connect (button, "clicked",
+		      G_CALLBACK (callback), (gpointer) "button 1");
 
-    /* Pack and show all our widgets */
-    gtk_widget_show(box1);
+    /* Instead of gtk_container_add, we pack this button into the invisible
+     * box, which has been packed into the window. */
+    gtk_box_pack_start (GTK_BOX(box1), button, TRUE, TRUE, 0);
 
-    gtk_container_add (GTK_CONTAINER (button), box1);
+    /* Always remember this step, this tells GTK that our preparation for
+     * this button is complete, and it can now be displayed. */
+    gtk_widget_show (button);
 
-    gtk_widget_show(button);
+    /* Do these same steps again to create a second button */
+    button = gtk_button_new_with_label ("Button 2");
 
-    gtk_container_add (GTK_CONTAINER (window), button);
+    /* Call the same callback function with a different argument,
+     * passing a pointer to "button 2" instead. */
+    g_signal_connect (button, "clicked",
+		      G_CALLBACK (callback), (gpointer) "button 2");
+
+    gtk_box_pack_start(GTK_BOX (box1), button, TRUE, TRUE, 0);
+
+    /* The order in which we show the buttons is not really important, but I
+     * recommend showing the window last, so it all pops up at once. */
+    gtk_widget_show (button);
+
+    gtk_widget_show (box1);
 
     gtk_widget_show (window);
-
+    
     /* Rest in gtk_main and wait for the fun to begin! */
     gtk_main ();
 
-    return(0);
+    return 0;
 }
-/* example-end */
+
+
