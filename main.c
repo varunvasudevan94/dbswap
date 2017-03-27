@@ -9,7 +9,7 @@
 static void callback( GtkWidget *widget,
                       gpointer   data )
 {
-    g_print ("Hello again - %s was pressed\n", (gchar *) data);
+    g_print ("Revert Back - %s was pressed\n", (gchar *) data);
 }
 
 /* another callback */
@@ -35,24 +35,30 @@ int create_widget_ui( int   argc,
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
    
-    gtk_window_set_title (GTK_WINDOW (window), "Hello Buttons!");
+    gtk_window_set_title (GTK_WINDOW (window), "dbswap v0");
 
     
     g_signal_connect (window, "delete-event",
                       G_CALLBACK (delete_event), NULL);
 
    
-    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+    gtk_container_set_border_width (GTK_CONTAINER (window), 100);
 
-    
+   /*button = new GtkButton('button'); // note 1
+$button->set_size_request(80, 32); // note 1
+$hbox = new GtkHBox(); // note 2
+$hbox->pack_start($button, 0, 0); // note 2
+$vbox->pack_start($hbox, 0, 0); // note*/ 
     box1 = gtk_hbox_new (FALSE, 0);
 
    while (list){  
-    gtk_container_add (GTK_CONTAINER (window), box1);
+    //box1 = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (window), box1);
 
     
     button = gtk_button_new_with_label (list->message);
-
+    
+    
    
     g_signal_connect (button, "clicked",
                       G_CALLBACK (callback), (gpointer) list->commit);
@@ -60,7 +66,7 @@ int create_widget_ui( int   argc,
     
     gtk_box_pack_start (GTK_BOX(box1), button, TRUE, TRUE, 0);
 	gtk_widget_show (button);
-
+	//box1 = gtk_hbox_new (FALSE, 0);
 	list=list->next;	
     }
     
